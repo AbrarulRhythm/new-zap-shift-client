@@ -61,3 +61,16 @@ p {
 .container {
     @apply mx-auto sm:max-w-[540px] md:max-w-[720px] lg:max-w-[960px] xl:max-w-[1240px] xxl:max-w-[1420px] px-3;
 }
+
+/* ========================= - Button - ========================= */
+.button {
+    @apply text-lg w-fit py-4 px-9 rounded-xl font-semibold duration-300;
+}
+
+.button-color {
+    @apply bg-theme-primary text-dark-12 hover:shadow-btn-inner;
+}
+
+.button-white {
+    @apply bg-white text-dark-12 border border-dark-5 hover:bg-theme-primary hover:border-theme-primary;
+}
