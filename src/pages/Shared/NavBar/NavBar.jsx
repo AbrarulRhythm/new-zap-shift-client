@@ -37,7 +37,7 @@ const NavBar = () => {
 
                     <button
                         onClick={() => setToggleNav(!toggleNav)}
-                        className="text-lg w-12 h-12 border border-dark-5 rounded-md flex md:hidden justify-center items-center my-4"
+                        className="text-lg w-12 h-12 border border-dark-5 rounded-md flex lg:hidden justify-center items-center my-4"
                     >
                         {toggleNav ? <IoCloseSharp className="text-3xl" /> : <FaBars />}
                     </button>
