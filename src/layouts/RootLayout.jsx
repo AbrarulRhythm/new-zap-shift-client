@@ -6,7 +6,7 @@ const RootLayout = () => {
     return (
         <div className="site-wrap">
             {/* Header */}
-            <header>
+            <header className="relative">
                 <NavBar></NavBar>
             </header>
             {/* Header End */}

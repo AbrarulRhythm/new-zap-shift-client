@@ -3,8 +3,12 @@ import Logo from '../../../components/Logo/Logo';
 import NavLinks from '../../../components/NavLinks/NavLinks';
 import { GoArrowUpRight } from 'react-icons/go';
 import { FaBars } from 'react-icons/fa';
+import { useState } from 'react';
+import { IoCloseSharp } from 'react-icons/io5';
 
 const NavBar = () => {
+    const [toggleNav, setToggleNav] = useState(false);
+
     return (
         <div className="px-3 lg:px-12 py-4 lg:py-8">
             <div className="bg-white rounded-md md:rounded-2xl">
@@ -13,7 +17,7 @@ const NavBar = () => {
                     <Logo></Logo>
 
                     {/* Nav Links */}
-                    <NavLinks></NavLinks>
+                    <NavLinks toggleNav={toggleNav} setToggleNav={setToggleNav}></NavLinks>
 
                     {/* Right Side (Buttons) */}
                     <div className="hidden md:flex items-center space-x-4">
@@ -31,8 +35,11 @@ const NavBar = () => {
                         </div>
                     </div>
 
-                    <button className="text-lg w-12 h-12 border border-dark-5 rounded-md flex md:hidden justify-center items-center my-4">
-                        <FaBars />
+                    <button
+                        onClick={() => setToggleNav(!toggleNav)}
+                        className="text-lg w-12 h-12 border border-dark-5 rounded-md flex md:hidden justify-center items-center my-4"
+                    >
+                        {toggleNav ? <IoCloseSharp className="text-3xl" /> : <FaBars />}
                     </button>
                 </div>
             </div>
