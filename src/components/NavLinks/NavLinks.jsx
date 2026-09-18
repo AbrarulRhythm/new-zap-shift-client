@@ -16,7 +16,7 @@ const NavLinks = () => {
                     <li key={index}>
                         <Link
                             to={link.href}
-                            className="font-semibold hover:text-theme-primary duration-300 text-center h-[96px] flex items-center"
+                            className="font-semibold hover:text-theme-primary duration-300 text-center h-24 flex items-center"
                         >
                             {link.name}
                         </Link>
