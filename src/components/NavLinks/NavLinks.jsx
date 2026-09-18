@@ -11,7 +11,7 @@ const navLinks = [
 const NavLinks = () => {
     return (
         <nav>
-            <ul className="flex space-x-6">
+            <ul className="hidden lg:flex space-x-6">
                 {navLinks.map((link, index) => (
                     <li key={index}>
                         <Link

@@ -64,7 +64,7 @@ p {
 
 /* ========================= - Button - ========================= */
 .button {
-    @apply text-lg w-fit py-4 px-9 rounded-xl font-semibold duration-300;
+    @apply text-base md:text-lg w-fit py-3.5 md:py-4 px-6.5 md:px-9 rounded-xl font-semibold duration-300;
 }
 
 .button-color {

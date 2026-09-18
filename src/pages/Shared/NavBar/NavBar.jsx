@@ -2,12 +2,13 @@ import { Link } from 'react-router';
 import Logo from '../../../components/Logo/Logo';
 import NavLinks from '../../../components/NavLinks/NavLinks';
 import { GoArrowUpRight } from 'react-icons/go';
+import { FaBars } from 'react-icons/fa';
 
 const NavBar = () => {
     return (
-        <div className="px-12 py-8">
-            <div className="bg-white rounded-2xl">
-                <div className="flex justify-between items-center px-8">
+        <div className="px-3 lg:px-12 py-4 lg:py-8">
+            <div className="bg-white rounded-md md:rounded-2xl">
+                <div className="flex justify-between items-center px-4 lg:px-8">
                     {/* logo */}
                     <Logo></Logo>
 
@@ -15,7 +16,7 @@ const NavBar = () => {
                     <NavLinks></NavLinks>
 
                     {/* Right Side (Buttons) */}
-                    <div className="flex items-center space-x-4">
+                    <div className="hidden md:flex items-center space-x-4">
                         <div>
                             <Link className="button button-white">Sign In</Link>
                         </div>
@@ -29,6 +30,10 @@ const NavBar = () => {
                             </Link>
                         </div>
                     </div>
+
+                    <button className="text-lg w-12 h-12 border border-dark-5 rounded-md flex md:hidden justify-center items-center my-4">
+                        <FaBars />
+                    </button>
                 </div>
             </div>
         </div>
