@@ -4,7 +4,7 @@ const Home = () => {
     return (
         <>
             {/*Hero Banner  */}
-            <section>
+            <section className="hero-banner">
                 <Banner></Banner>
             </section>
         </>

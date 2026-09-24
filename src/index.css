@@ -78,3 +78,12 @@ p {
 .button-full-round {
     @apply rounded-4xl;
 }
+
+/* ========================= - Herro Banner (Swiper) - ========================= */
+/* .swiper {
+    @apply overflow-x-clip;
+}
+
+.swiper-horizontal {
+    @apply bottom-[-24px];
+} */
