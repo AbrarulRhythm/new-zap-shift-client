@@ -64,7 +64,7 @@ p {
 
 /* ========================= - Button - ========================= */
 .button {
-    @apply text-base md:text-lg w-fit py-3.5 md:py-4 px-6.5 md:px-9 rounded-xl font-semibold duration-300;
+    @apply text-base font-medium md:text-lg w-fit py-3.5 md:py-4 px-6.5 md:px-9 rounded-xl font-semibold duration-300;
 }
 
 .button-color {
@@ -73,4 +73,8 @@ p {
 
 .button-white {
     @apply bg-white text-dark-12 border border-dark-5 hover:bg-theme-primary hover:border-theme-primary;
+}
+
+.button-full-round {
+    @apply rounded-4xl;
 }
