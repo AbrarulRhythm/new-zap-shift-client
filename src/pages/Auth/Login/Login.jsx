@@ -98,7 +98,7 @@ const Login = () => {
 
                 {/* Login with google */}
 
-                <button className="flex items-center justify-center gap-2 w-full bg-gray-300 text-dark-13 font-semibold rounded-md px-4 py-2.5 hover:shadow-btn-inner duration-300 active:scale-95 cursor-pointer">
+                <button className="flex items-center justify-center gap-2 w-full bg-gray-200 text-dark-13 font-semibold rounded-md px-4 py-2.5 hover:shadow-btn-inner duration-300 active:scale-95 cursor-pointer">
                     <FcGoogle className="text-xl" /> Login with google
                 </button>
             </div>
