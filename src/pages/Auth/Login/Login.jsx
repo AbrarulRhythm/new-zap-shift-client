@@ -26,7 +26,7 @@ const Login = () => {
             <div className="w-full md:w-8/12 2xl:w-6/12 px-3">
                 <div className="mb-5">
                     <h1 className="text-4xl lg:text-5xl font-bold text-dark-13">Welcome Back</h1>
-                    <p className="text-lg mt-2 text-dark-12">Login with ZapShift</p>
+                    <p className="text-lg mt-2 text-dark-12  font-medium">Login with ZapShift</p>
                 </div>
 
                 <form onSubmit={handleSubmit(handleLogin)}>
@@ -86,9 +86,8 @@ const Login = () => {
                 </form>
                 <div className="mt-4">
                     <span className="text-lg">
-                        {' '}
-                        Don’t have any account?{' '}
-                        <Link to="/register" className="underline hover:text-theme-primary duration-200">
+                        Don’t have any account?
+                        <Link to="/register" className="underline hover:text-theme-primary duration-200 ml-2">
                             Register
                         </Link>
                     </span>
@@ -97,7 +96,6 @@ const Login = () => {
                 <span className="text-center text-xl py-4 block">or</span>
 
                 {/* Login with google */}
-
                 <button className="flex items-center justify-center gap-2 w-full bg-gray-200 text-dark-13 font-semibold rounded-md px-4 py-2.5 hover:shadow-btn-inner duration-300 active:scale-95 cursor-pointer">
                     <FcGoogle className="text-xl" /> Login with google
                 </button>
