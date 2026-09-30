@@ -5,7 +5,7 @@ import { Outlet } from 'react-router';
 const AuthLayout = () => {
     return (
         <div className="auth-wrap bg-white">
-            <div className="px-3 lg:px-8 py-6 fixed top-0 left-0 bg-white lg:bg-transparent w-full">
+            <div className="px-3 lg:px-8 py-3 md:py-6 fixed top-0 left-0 bg-white lg:bg-transparent w-full">
                 <Logo></Logo>
             </div>
 

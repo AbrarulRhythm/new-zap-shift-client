@@ -14,15 +14,21 @@ const Register = () => {
         handleSubmit,
         reset,
         formState: { errors, isValid, isSubmitting },
-    } = useForm();
+    } = useForm({
+        mode: 'onChange',
+    });
 
     // Handle Submit Form
     const handleRegister = async (data) => {
-        console.log(data);
+        try {
+            console.log(data);
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     return (
-        <div className="flex justify-center  items-center w-full h-full mt-10 lg:mt-0">
+        <div className="flex justify-center items-center w-full h-auto lg:h-full mt-24 md:mt-28 lg:mt-0">
             <div className="w-full md:w-8/12 2xl:w-6/12 px-3">
                 <div className="mb-5">
                     <h1 className="text-4xl lg:text-5xl font-bold text-dark-13">Create an Account</h1>
@@ -67,6 +73,9 @@ const Register = () => {
                             <input
                                 {...register('password', {
                                     required: 'Password is required!',
+                                    validate: {
+                                        minLength: (value) => value.length >= 6 || 'Must be at least 6 characters',
+                                    },
                                 })}
                                 type={showPassword ? 'text' : 'password'}
                                 className={`${errors.password ? 'form-field-error form-field' : 'form-field'}`}
@@ -88,6 +97,7 @@ const Register = () => {
                     <button
                         className="w-full bg-theme-primary disabled:bg-gray-400 disabled:active:scale-100 disabled:hover:shadow-none disabled:text-white disabled:cursor-not-allowed text-dark-13 font-semibold rounded-md px-4 py-2.5 hover:shadow-btn-inner duration-300 active:scale-95 cursor-pointer"
                         disabled={!isValid || isSubmitting}
+                        type="submit"
                     >
                         {isSubmitting ? <span className="loading loading-spinner loading-sm"></span> : 'Register'}
                     </button>
