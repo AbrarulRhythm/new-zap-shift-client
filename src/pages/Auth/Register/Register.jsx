@@ -5,7 +5,6 @@ import { FcGoogle } from 'react-icons/fc';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
 import { Link } from 'react-router';
-import { AuthContext } from '../../../context/AuthContext/AuthContext';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
