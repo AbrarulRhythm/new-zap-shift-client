@@ -27,7 +27,6 @@ const Register = () => {
             // 1. Register User
             const userCredential = await registerUser(data.email, data.password);
             const firebaseUser = userCredential.user;
-            console.log(firebaseUser);
 
             // Update to the firebase profile
             updateUserProfile({ displayName: data.name });
@@ -42,6 +41,8 @@ const Register = () => {
 
     return (
         <div className="flex justify-center items-center w-full h-auto lg:h-full mt-24 md:mt-28 lg:mt-0">
+            <title>Sign up for Zap Shift</title>
+
             <div className="w-full md:w-8/12 2xl:w-6/12 px-3">
                 <div className="mb-5">
                     <h1 className="text-4xl lg:text-5xl font-bold text-dark-13">Create an Account</h1>

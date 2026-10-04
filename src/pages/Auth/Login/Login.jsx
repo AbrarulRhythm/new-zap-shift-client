@@ -5,9 +5,12 @@ import { FcGoogle } from 'react-icons/fc';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
 import { Link } from 'react-router';
+import { toast } from 'react-toastify';
+import useAuth from '../../../hooks/useAuth';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const { signInUser } = useAuth();
 
     const {
         register,
@@ -18,11 +21,23 @@ const Login = () => {
 
     // Handle Submit Form
     const handleLogin = async (data) => {
-        console.log(data);
+        try {
+            // 1. SignIn user
+            const result = await signInUser(data.email, data.password);
+            console.log(result);
+
+            // 2. Finish
+            reset(); // form reset
+            toast.success(`Sign In successful. Welcome back, ${result.user.displayName}!`);
+        } catch (error) {
+            toast.error(error.message);
+        }
     };
 
     return (
         <div className="flex justify-center  items-center w-full h-full mt-10 lg:mt-0">
+            <title>Zap Shift - log in or sign up</title>
+
             <div className="w-full md:w-8/12 2xl:w-6/12 px-3">
                 <div className="mb-5">
                     <h1 className="text-4xl lg:text-5xl font-bold text-dark-13">Welcome Back</h1>
