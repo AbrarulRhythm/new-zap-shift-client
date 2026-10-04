@@ -5,9 +5,12 @@ import { FcGoogle } from 'react-icons/fc';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
 import { Link } from 'react-router';
+import useAuth from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const { registerUser, updateUserProfile } = useAuth();
 
     const {
         register,
@@ -21,9 +24,19 @@ const Register = () => {
     // Handle Submit Form
     const handleRegister = async (data) => {
         try {
-            console.log(data);
+            // 1. Register User
+            const userCredential = await registerUser(data.email, data.password);
+            const firebaseUser = userCredential.user;
+            console.log(firebaseUser);
+
+            // Update to the firebase profile
+            updateUserProfile({ displayName: data.name });
+
+            // Finish
+            reset(); // Form reset
+            toast.success(`Dear ${data.name}, your account has been successfully created`);
         } catch (error) {
-            console.log(error.message);
+            toast.error(error.message);
         }
     };
 

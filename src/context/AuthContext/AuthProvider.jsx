@@ -1,6 +1,6 @@
 import { auth } from '../../firebase/firebase.config';
 import { AuthContext } from './AuthContext';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from 'firebase/auth';
 
 const AuthProvider = ({ children }) => {
     // Register User
@@ -13,6 +13,11 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     };
 
+    // Update user profile
+    const updateUserProfile = (profile) => {
+        return updateProfile(auth.currentUser, profile);
+    };
+
     // Sign Out
     const singOutUser = () => {
         return signOut(auth);
@@ -21,6 +26,7 @@ const AuthProvider = ({ children }) => {
     const authInfo = {
         registerUser,
         signInUser,
+        updateUserProfile,
         singOutUser,
     };
 
