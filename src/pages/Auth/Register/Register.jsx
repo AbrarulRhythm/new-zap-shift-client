@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaRegEyeSlash } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
 import { Link } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import SocilaLogin from '../SocialLogin/SocilaLogin';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -48,7 +48,6 @@ const Register = () => {
                     <h1 className="text-4xl lg:text-5xl font-bold text-dark-13">Create an Account</h1>
                     <p className="text-lg mt-2 text-dark-12 font-medium">Register with ZapShift</p>
                 </div>
-
                 <form onSubmit={handleSubmit(handleRegister)}>
                     {/* Name */}
                     <div className="mb-4">
@@ -124,13 +123,9 @@ const Register = () => {
                         </Link>
                     </span>
                 </div>
-
                 <span className="text-center text-xl py-4 block">or</span>
-
                 {/* Register with google */}
-                <button className="flex items-center justify-center gap-2 w-full bg-gray-200 text-dark-13 font-semibold rounded-md px-4 py-2.5 hover:shadow-btn-inner duration-300 active:scale-95 cursor-pointer">
-                    <FcGoogle className="text-xl" /> Register with google
-                </button>
+                <SocilaLogin title="Register"></SocilaLogin>
             </div>
         </div>
     );

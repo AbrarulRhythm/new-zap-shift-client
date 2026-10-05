@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaRegEyeSlash } from 'react-icons/fa';
-import { FcGoogle } from 'react-icons/fc';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
 import { Link } from 'react-router';
 import { toast } from 'react-toastify';
 import useAuth from '../../../hooks/useAuth';
+import SocilaLogin from '../SocialLogin/SocilaLogin';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -111,9 +111,7 @@ const Login = () => {
                 <span className="text-center text-xl py-4 block">or</span>
 
                 {/* Login with google */}
-                <button className="flex items-center justify-center gap-2 w-full bg-gray-200 text-dark-13 font-semibold rounded-md px-4 py-2.5 hover:shadow-btn-inner duration-300 active:scale-95 cursor-pointer">
-                    <FcGoogle className="text-xl" /> Login with google
-                </button>
+                <SocilaLogin title="Login"></SocilaLogin>
             </div>
         </div>
     );
