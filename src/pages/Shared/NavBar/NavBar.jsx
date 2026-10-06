@@ -45,7 +45,9 @@ const NavBar = () => {
                                     </Link>
                                 </div>
                                 <div className="flex">
-                                    <Link className="button button-color">Be a rider</Link>
+                                    <Link to="/be-a-rider" className="button button-color">
+                                        Be a rider
+                                    </Link>
                                     <Link
                                         to="/"
                                         className="w-15 h-15 flex justify-center items-center text-2xl bg-dark-12 text-theme-primary rounded-full hover:bg-theme-primary hover:text-dark-12 duration-300"
