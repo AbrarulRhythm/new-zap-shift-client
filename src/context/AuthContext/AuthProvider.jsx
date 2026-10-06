@@ -4,6 +4,7 @@ import { AuthContext } from './AuthContext';
 import {
     createUserWithEmailAndPassword,
     GoogleAuthProvider,
+    onAuthStateChanged,
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
@@ -48,7 +49,14 @@ const AuthProvider = ({ children }) => {
     };
 
     // Observe user state
-    useEffect(() => {}, []);
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+        return () => {
+            unSubscribe();
+        };
+    }, []);
 
     const authInfo = {
         user,
