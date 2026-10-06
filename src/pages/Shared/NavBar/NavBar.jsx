@@ -5,9 +5,23 @@ import { GoArrowUpRight } from 'react-icons/go';
 import { FaBars } from 'react-icons/fa';
 import { useState } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
+import useAuth from '../../../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 const NavBar = () => {
     const [toggleNav, setToggleNav] = useState(false);
+    const { user, singOutUser } = useAuth();
+
+    // Handle Sign Out
+    const handleSignOut = async () => {
+        try {
+            await singOutUser();
+
+            toast.success('Successfully signed out! We hope to see you again soon.');
+        } catch (error) {
+            toast.error(error.message);
+        }
+    };
 
     return (
         <div className="px-3 lg:px-12 py-4 lg:py-8">
@@ -20,19 +34,27 @@ const NavBar = () => {
                     <NavLinks toggleNav={toggleNav} setToggleNav={setToggleNav}></NavLinks>
 
                     {/* Right Side (Buttons) */}
-                    <div className="hidden md:flex items-center space-x-4">
-                        <div>
-                            <Link className="button button-white">Sign In</Link>
-                        </div>
-                        <div className="flex">
-                            <Link className="button button-color">Be a rider</Link>
-                            <Link
-                                to="/"
-                                className="w-15 h-15 flex justify-center items-center text-2xl bg-dark-12 text-theme-primary rounded-full hover:bg-theme-primary hover:text-dark-12 duration-300"
-                            >
-                                <GoArrowUpRight />
-                            </Link>
-                        </div>
+                    <div>
+                        {user ? (
+                            <button onClick={handleSignOut}>Sign Out</button>
+                        ) : (
+                            <div className="hidden md:flex items-center space-x-4">
+                                <div>
+                                    <Link to="/login" className="button button-white">
+                                        Sign In
+                                    </Link>
+                                </div>
+                                <div className="flex">
+                                    <Link className="button button-color">Be a rider</Link>
+                                    <Link
+                                        to="/"
+                                        className="w-15 h-15 flex justify-center items-center text-2xl bg-dark-12 text-theme-primary rounded-full hover:bg-theme-primary hover:text-dark-12 duration-300"
+                                    >
+                                        <GoArrowUpRight />
+                                    </Link>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <button

@@ -30,7 +30,7 @@ const NavLinks = ({ toggleNav, setToggleNav }) => {
 
             {/* Mobile Nav */}
             <ul
-                className={`flex lg:hidden flex-col absolute left-0 right-0 top-[99%] mx-3 space-x-6 bg-white border border-dark-5 rounded-md px-5 py-2 shadow-xl transition-all duration-300 ease-in-out transform origin-top
+                className={`flex lg:hidden flex-col absolute left-0 right-0 top-[99%] z-30 mx-3 space-x-6 bg-white border border-dark-5 rounded-md px-5 py-2 shadow-xl transition-all duration-300 ease-in-out transform origin-top
                 ${
                     toggleNav
                         ? 'opacity-100 scale-y-100 translate-y-0 pointer-events-auto'
