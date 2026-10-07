@@ -3,25 +3,17 @@ import Logo from '../../../components/Logo/Logo';
 import NavLinks from '../../../components/NavLinks/NavLinks';
 import { GoArrowUpRight } from 'react-icons/go';
 import { FaBars } from 'react-icons/fa';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { IoCloseSharp } from 'react-icons/io5';
 import useAuth from '../../../hooks/useAuth';
-import { toast } from 'react-toastify';
+import ProfileMenu from '../../../components/ProfileMenu/ProfileMenu';
+import defaultImage from '../../../assets/default.jpg';
 
 const NavBar = () => {
     const [toggleNav, setToggleNav] = useState(false);
-    const { user, singOutUser } = useAuth();
-
-    // Handle Sign Out
-    const handleSignOut = async () => {
-        try {
-            await singOutUser();
-
-            toast.success('Successfully signed out! We hope to see you again soon.');
-        } catch (error) {
-            toast.error(error.message);
-        }
-    };
+    const [toggleProfileMenu, setToggleProfileMenu] = useState(false);
+    const menuRef = useRef(null);
+    const { user } = useAuth();
 
     return (
         <div className="px-3 lg:px-12 py-4 lg:py-8">
@@ -36,7 +28,26 @@ const NavBar = () => {
                     {/* Right Side (Buttons) */}
                     <div>
                         {user ? (
-                            <button onClick={handleSignOut}>Sign Out</button>
+                            <div ref={menuRef} className="relative">
+                                <div
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        setToggleProfileMenu(!toggleProfileMenu);
+                                    }}
+                                    className="w-14 h-14 bg-gray-200 rounded-full overflow-hidden border border-dark-5 cursor-pointer"
+                                >
+                                    <img
+                                        src={user?.photoURL || defaultImage}
+                                        className="w-14 h-14 rounded-full object-cover bg-gray-300"
+                                        alt="Profile Image"
+                                    />
+                                </div>
+                                <ProfileMenu
+                                    menuRef={menuRef}
+                                    toggleProfileMenu={toggleProfileMenu}
+                                    setToggleProfileMenu={setToggleProfileMenu}
+                                ></ProfileMenu>
+                            </div>
                         ) : (
                             <div className="hidden md:flex items-center space-x-4">
                                 <div>
