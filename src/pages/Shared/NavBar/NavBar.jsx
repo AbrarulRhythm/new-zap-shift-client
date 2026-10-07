@@ -38,7 +38,7 @@ const NavBar = () => {
                                 >
                                     <img
                                         src={user?.photoURL || defaultImage}
-                                        className="w-14 h-14 rounded-full object-cover bg-gray-300"
+                                        className="w-14 h-14 rounded-full object-cover bg-gray-300 object-fill"
                                         alt="Profile Image"
                                     />
                                 </div>

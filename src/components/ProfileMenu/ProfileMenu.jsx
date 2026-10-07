@@ -57,7 +57,7 @@ const ProfileMenu = ({ menuRef, toggleProfileMenu, setToggleProfileMenu }) => {
             <div className="pt-8 mb-6">
                 <img
                     src={user?.photoURL || defaultImage}
-                    className="w-11 h-11 object-cover rounded-full mx-auto mb-2 border border-dark-5"
+                    className="w-11 h-11 object-cover rounded-full mx-auto mb-2 border border-dark-5 object-fill"
                     alt="User Profile Pic"
                 />
                 <h5 className="text-dark-12 text-sm font-medium text-center">{user && user.displayName}</h5>
