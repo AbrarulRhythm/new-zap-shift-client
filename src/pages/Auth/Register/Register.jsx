@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
 import SocilaLogin from '../SocialLogin/SocilaLogin';
@@ -11,7 +11,9 @@ import axios from 'axios';
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { registerUser, updateUserProfile } = useAuth();
+    const { user, registerUser, updateUserProfile } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -44,11 +46,18 @@ const Register = () => {
 
             // 4. Finish
             reset(); // Form reset
+            navigate(location.state || '/');
             toast.success(`Dear ${data.name}, your account has been successfully created`);
         } catch (error) {
             toast.error(error.message);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate(location.state || '/');
+        }
+    }, [user, location.state, navigate]);
 
     return (
         <div className="flex justify-center items-center w-full h-auto lg:h-full mt-24 md:mt-28 lg:mt-0">
@@ -145,7 +154,7 @@ const Register = () => {
                 <div className="mt-4">
                     <span className="text-lg">
                         Already have an account?
-                        <Link to="/login" className="underline hover:text-theme-primary duration-200 ml-2">
+                        <Link state={location?.state} to="/login" className="underline hover:text-theme-primary duration-200 ml-2">
                             Login
                         </Link>
                     </span>

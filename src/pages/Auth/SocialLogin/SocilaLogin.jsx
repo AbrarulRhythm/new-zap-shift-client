@@ -1,9 +1,12 @@
 import { FcGoogle } from 'react-icons/fc';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import { useLocation, useNavigate } from 'react-router';
 
 const SocilaLogin = ({ title }) => {
     const { signInGoogle } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     // Handle Google sign in
     const handleGoogleSignIn = async () => {
@@ -11,9 +14,9 @@ const SocilaLogin = ({ title }) => {
             // 1. Google Sign In
             const result = await signInGoogle();
 
-            console.log(result.user);
-
             toast('Done | Sign In');
+
+            navigate(location.state || '/');
         } catch (error) {
             toast.error(error);
         }

@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaRegEyeSlash } from 'react-icons/fa';
 import { IoEyeOutline } from 'react-icons/io5';
 import { TbInfoSquare } from 'react-icons/tb';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 import useAuth from '../../../hooks/useAuth';
 import SocilaLogin from '../SocialLogin/SocilaLogin';
 
 const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
-    const { signInUser } = useAuth();
+    const { user, signInUser } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -28,11 +30,18 @@ const Login = () => {
 
             // 2. Finish
             reset(); // form reset
+            navigate(location.state || '/');
             toast.success(`Sign In successful. Welcome back, ${result.user.displayName}!`);
         } catch (error) {
             toast.error(error.message);
         }
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate(location.state || '/');
+        }
+    }, [user, navigate, location?.state]);
 
     return (
         <div className="flex justify-center  items-center w-full h-full mt-10 lg:mt-0">
@@ -102,7 +111,7 @@ const Login = () => {
                 <div className="mt-4">
                     <span className="text-lg">
                         Don’t have any account?
-                        <Link to="/register" className="underline hover:text-theme-primary duration-200 ml-2">
+                        <Link state={location?.state} to="/register" className="underline hover:text-theme-primary duration-200 ml-2">
                             Register
                         </Link>
                     </span>
