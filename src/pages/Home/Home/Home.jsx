@@ -2,6 +2,7 @@ import Banner from '../Banner/Banner';
 import Brands from '../Brands/Brands';
 import HowItWorks from '../HowItWorks/HowItWorks';
 import OurServices from '../OurServices/OurServices';
+import WhyChooseUs from '../WhyChooseUs/WhyChooseUs';
 
 const Home = () => {
     return (
@@ -26,6 +27,11 @@ const Home = () => {
             {/* Brands */}
             <section className="brands py-12 lg:py-25">
                 <Brands></Brands>
+            </section>
+
+            {/* Why Choose Us */}
+            <section className="why-choose-us">
+                <WhyChooseUs></WhyChooseUs>
             </section>
         </>
     );
