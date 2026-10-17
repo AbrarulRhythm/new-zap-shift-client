@@ -5,6 +5,7 @@ const navLinks = [
     { name: 'Coverage', href: '/coverage' },
     { name: 'About Us', href: '/about' },
     { name: 'Pricing', href: '/pricing' },
+    { name: 'Send Parcel', href: '/sendParcel' },
     { name: 'Be a Rider', href: '/rider' },
 ];
 
