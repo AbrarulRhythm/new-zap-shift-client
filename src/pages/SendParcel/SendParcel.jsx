@@ -16,6 +16,7 @@ const SendParcel = () => {
     const regionsDuplicate = serviceCenters.map((c) => c.region);
     const regions = [...new Set(regionsDuplicate)];
     const senderRegion = useWatch({ control, name: 'senderRegion' });
+    const receiverRegion = useWatch({ control, name: 'receiverRegion' });
 
     const districtsByRegion = (region) => {
         const regionDistricts = serviceCenters.filter((c) => c.region === region);
@@ -201,9 +202,9 @@ const SendParcel = () => {
                                             className={`${errors.senderDistrict ? 'form-field-error form-field' : 'form-field'} select h-auto`}
                                         >
                                             <option disabled={true}>Select your District</option>
-                                            {districtsByRegion(senderRegion).map((r, i) => (
-                                                <option key={i} value={r}>
-                                                    {r}
+                                            {districtsByRegion(senderRegion).map((d, i) => (
+                                                <option key={i} value={d}>
+                                                    {d}
                                                 </option>
                                             ))}
                                         </select>
@@ -306,20 +307,46 @@ const SendParcel = () => {
                                         </span>
                                     </div>
 
+                                    {/* Receiver region */}
+                                    <div className="mb-4">
+                                        <label className="form-label">Receiver Regions</label>
+                                        <select
+                                            {...register('receiverRegion', {
+                                                required: 'Receiver regions is required!',
+                                            })}
+                                            defaultValue="Select Receiver Regions"
+                                            className={`${errors.senderRegion ? 'form-field-error form-field' : 'form-field'} select h-auto`}
+                                        >
+                                            <option disabled={true}>Select Receiver Regions</option>
+                                            {regions.map((r, i) => (
+                                                <option key={i} value={r}>
+                                                    {r}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <span
+                                            className={`${errors.receiverRegion ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
+                                        >
+                                            <TbInfoSquare className="text-lg" /> {errors.receiverRegion && errors.receiverRegion.message}
+                                        </span>
+                                    </div>
+
                                     {/* Receiver district */}
                                     <div className="mb-4">
-                                        <label className="form-label">Your District</label>
+                                        <label className="form-label">Receiver District</label>
                                         <select
                                             {...register('receiverDistrict', {
-                                                required: 'Sender district is required!',
+                                                required: 'Receiver district is required!',
                                             })}
-                                            defaultValue="Pick a font"
+                                            defaultValue="Select Receiver District"
                                             className={`${errors.receiverDistrict ? 'form-field-error form-field' : 'form-field'} select h-auto`}
                                         >
-                                            <option>Select your District</option>
-                                            <option>Inter</option>
-                                            <option>Poppins</option>
-                                            <option>Raleway</option>
+                                            <option disabled={true}>Select Receiver District</option>
+                                            {districtsByRegion(receiverRegion).map((d, i) => (
+                                                <option key={i} value={d}>
+                                                    {d}
+                                                </option>
+                                            ))}
                                         </select>
                                         <span
                                             className={`${errors.receiverDistrict ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
