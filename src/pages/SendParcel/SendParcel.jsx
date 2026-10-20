@@ -2,6 +2,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { TbInfoSquare } from 'react-icons/tb';
 import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
 
 const SendParcel = () => {
     const {
@@ -26,11 +27,48 @@ const SendParcel = () => {
 
     // Handle Send Aprcel
     const handleSendParcel = async (data) => {
-        try {
-            console.log(data);
-        } catch (error) {
-            toast.error(error.message);
+        const isDocument = data.percleType === 'document';
+        const isSameDistrict = data.senderDistrict === data.receiverDistrict;
+        const parcelWeight = parseFloat(data.parcelWeight);
+
+        let cost = 0;
+
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        } else {
+            if (parcelWeight < 3) {
+                cost = isSameDistrict ? 110 : 150;
+            } else {
+                const minCharge = isSameDistrict ? 110 : 150;
+                const extraWeight = parcelWeight - 3;
+                const extraCharge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40;
+
+                cost = minCharge + extraCharge;
+            }
         }
+
+        Swal.fire({
+            title: 'Agree with the Cost?',
+            text: `You will be the charged TK ${cost}!`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'I agree!',
+        }).then((result) => {
+            if (result.isConfirmed)
+                try {
+                    console.log(data);
+                } catch (error) {
+                    toast.error(error.message);
+                }
+
+            // Swal.fire({
+            //     title: 'Deleted!',
+            //     text: 'Your file has been deleted.',
+            //     icon: 'success',
+            // });
+        });
     };
 
     return (
@@ -50,6 +88,7 @@ const SendParcel = () => {
                                     <input
                                         {...register('percleType', { required: 'hello' })}
                                         type="radio"
+                                        value="document"
                                         className="radio radio-sm radio-success"
                                     />
                                     <span className="font-semibold">Document</span>
@@ -58,6 +97,7 @@ const SendParcel = () => {
                                     <input
                                         {...register('percleType', { required: 'hello' })}
                                         type="radio"
+                                        value="non-document"
                                         className="radio radio-sm radio-success"
                                     />
                                     <span className="font-semibold">Not-Document</span>
@@ -76,7 +116,7 @@ const SendParcel = () => {
                                             {...register('parcelName', {
                                                 required: 'Parcel name is required!',
                                             })}
-                                            type="name"
+                                            type="text"
                                             className={`${errors.parcelName ? 'form-field-error form-field' : 'form-field'}`}
                                             placeholder="Parcel Name"
                                         />
@@ -94,7 +134,7 @@ const SendParcel = () => {
                                             {...register('parcelWeight', {
                                                 required: 'Parcel weight is required!',
                                             })}
-                                            type="name"
+                                            type="text"
                                             className={`${errors.parcelWeight ? 'form-field-error form-field' : 'form-field'}`}
                                             placeholder="Parcel Weight (KG)"
                                         />
