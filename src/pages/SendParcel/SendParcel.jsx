@@ -1,5 +1,6 @@
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { TbInfoSquare } from 'react-icons/tb';
+import { useLoaderData } from 'react-router';
 import { toast } from 'react-toastify';
 
 const SendParcel = () => {
@@ -7,8 +8,20 @@ const SendParcel = () => {
         register,
         handleSubmit,
         reset,
+        control,
         formState: { errors, isValid, isSubmitting },
     } = useForm();
+
+    const serviceCenters = useLoaderData();
+    const regionsDuplicate = serviceCenters.map((c) => c.region);
+    const regions = [...new Set(regionsDuplicate)];
+    const senderRegion = useWatch({ control, name: 'senderRegion' });
+
+    const districtsByRegion = (region) => {
+        const regionDistricts = serviceCenters.filter((c) => c.region === region);
+        const districts = regionDistricts.map((d) => d.district);
+        return districts;
+    };
 
     // Handle Send Aprcel
     const handleSendParcel = async (data) => {
@@ -117,20 +130,21 @@ const SendParcel = () => {
                                         </span>
                                     </div>
 
-                                    {/* Sender address */}
+                                    {/* Sender email */}
                                     <div className="mb-4">
-                                        <label className="form-label">Sender Address</label>
+                                        <label className="form-label">Sender Email</label>
                                         <input
-                                            {...register('senderAddress', {
-                                                required: 'Sender address is required!',
+                                            {...register('senderEmail', {
+                                                required: 'Sender email is required!',
                                             })}
-                                            className={`${errors.senderAddress ? 'form-field-error form-field' : 'form-field'}`}
-                                            placeholder="Sender Address"
+                                            type="email"
+                                            className={`${errors.senderEmail ? 'form-field-error form-field' : 'form-field'}`}
+                                            placeholder="Sender Email"
                                         />
                                         <span
-                                            className={`${errors.senderAddress ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
+                                            className={`${errors.senderEmail ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
                                         >
-                                            <TbInfoSquare className="text-lg" /> {errors.senderAddress && errors.senderAddress.message}
+                                            <TbInfoSquare className="text-lg" /> {errors.senderEmail && errors.senderEmail.message}
                                         </span>
                                     </div>
 
@@ -152,6 +166,30 @@ const SendParcel = () => {
                                         </span>
                                     </div>
 
+                                    {/* Sender region */}
+                                    <div className="mb-4">
+                                        <label className="form-label">Your Regions</label>
+                                        <select
+                                            {...register('senderRegion', {
+                                                required: 'Sender regions is required!',
+                                            })}
+                                            defaultValue="Select your Regions"
+                                            className={`${errors.senderRegion ? 'form-field-error form-field' : 'form-field'} select h-auto`}
+                                        >
+                                            <option disabled={true}>Select your Regions</option>
+                                            {regions.map((r, i) => (
+                                                <option key={i} value={r}>
+                                                    {r}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <span
+                                            className={`${errors.senderRegion ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
+                                        >
+                                            <TbInfoSquare className="text-lg" /> {errors.senderRegion && errors.senderRegion.message}
+                                        </span>
+                                    </div>
+
                                     {/* Sender district */}
                                     <div className="mb-4">
                                         <label className="form-label">Your District</label>
@@ -159,18 +197,37 @@ const SendParcel = () => {
                                             {...register('senderDistrict', {
                                                 required: 'Sender district is required!',
                                             })}
-                                            defaultValue="Pick a font"
+                                            defaultValue="Select your District"
                                             className={`${errors.senderDistrict ? 'form-field-error form-field' : 'form-field'} select h-auto`}
                                         >
-                                            <option>Select your District</option>
-                                            <option>Inter</option>
-                                            <option>Poppins</option>
-                                            <option>Raleway</option>
+                                            <option disabled={true}>Select your District</option>
+                                            {districtsByRegion(senderRegion).map((r, i) => (
+                                                <option key={i} value={r}>
+                                                    {r}
+                                                </option>
+                                            ))}
                                         </select>
                                         <span
                                             className={`${errors.senderDistrict ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
                                         >
                                             <TbInfoSquare className="text-lg" /> {errors.senderDistrict && errors.senderDistrict.message}
+                                        </span>
+                                    </div>
+
+                                    {/* Sender address */}
+                                    <div className="mb-4">
+                                        <label className="form-label">Sender Address</label>
+                                        <input
+                                            {...register('senderAddress', {
+                                                required: 'Sender address is required!',
+                                            })}
+                                            className={`${errors.senderAddress ? 'form-field-error form-field' : 'form-field'}`}
+                                            placeholder="Sender Address"
+                                        />
+                                        <span
+                                            className={`${errors.senderAddress ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
+                                        >
+                                            <TbInfoSquare className="text-lg" /> {errors.senderAddress && errors.senderAddress.message}
                                         </span>
                                     </div>
 
@@ -213,20 +270,21 @@ const SendParcel = () => {
                                         </span>
                                     </div>
 
-                                    {/* Receiver address */}
+                                    {/* Receiver email */}
                                     <div className="mb-4">
-                                        <label className="form-label">Receiver Address</label>
+                                        <label className="form-label">Receiver Email</label>
                                         <input
-                                            {...register('receiverAddress', {
-                                                required: 'Receiver address is required!',
+                                            {...register('receiverEmail', {
+                                                required: 'Receiver email is required!',
                                             })}
-                                            className={`${errors.receiverAddress ? 'form-field-error form-field' : 'form-field'}`}
-                                            placeholder="Receiver Address"
+                                            type="email"
+                                            className={`${errors.receiverEmail ? 'form-field-error form-field' : 'form-field'}`}
+                                            placeholder="Receiver Email"
                                         />
                                         <span
-                                            className={`${errors.receiverAddress ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
+                                            className={`${errors.receiverEmail ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
                                         >
-                                            <TbInfoSquare className="text-lg" /> {errors.receiverAddress && errors.receiverAddress.message}
+                                            <TbInfoSquare className="text-lg" /> {errors.receiverEmail && errors.receiverEmail.message}
                                         </span>
                                     </div>
 
@@ -268,6 +326,23 @@ const SendParcel = () => {
                                         >
                                             <TbInfoSquare className="text-lg" />{' '}
                                             {errors.receiverDistrict && errors.receiverDistrict.message}
+                                        </span>
+                                    </div>
+
+                                    {/* Receiver address */}
+                                    <div className="mb-4">
+                                        <label className="form-label">Receiver Address</label>
+                                        <input
+                                            {...register('receiverAddress', {
+                                                required: 'Receiver address is required!',
+                                            })}
+                                            className={`${errors.receiverAddress ? 'form-field-error form-field' : 'form-field'}`}
+                                            placeholder="Receiver Address"
+                                        />
+                                        <span
+                                            className={`${errors.receiverAddress ? 'flex mt-2.5' : 'hidden'} text-sm text-red-500 items-center gap-2`}
+                                        >
+                                            <TbInfoSquare className="text-lg" /> {errors.receiverAddress && errors.receiverAddress.message}
                                         </span>
                                     </div>
 
