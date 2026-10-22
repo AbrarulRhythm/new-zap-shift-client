@@ -8,6 +8,7 @@ import Register from '../pages/Auth/Register/Register';
 import PrivateRoute from './PrivateRoute';
 import Rider from '../pages/Rider/Rider';
 import SendParcel from '../pages/SendParcel/SendParcel';
+import Pricing from '../pages/Pricing/Pricing';
 
 export const router = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ export const router = createBrowserRouter([
                         <Rider></Rider>
                     </PrivateRoute>
                 ),
+            },
+            {
+                path: 'pricing',
+                Component: Pricing,
             },
         ],
     },
